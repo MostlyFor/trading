@@ -6,7 +6,7 @@ import time
 import pandas as pd
 from strategy import *
 from PositionManager import *
-
+from indicators import *
 
 
 
@@ -32,7 +32,7 @@ if __name__ == "__main__":
             BTC_M = PositionManager('BTC/USDT')
             
             #2400 requests per minute
-            time.sleep(0.025)
+            time.sleep(60/2400)
             
             
             # 잔고 조회
@@ -41,17 +41,21 @@ if __name__ == "__main__":
             
             
             
-            
-            
-            #btc가 조건에 맞는다면
+            #btc가 진입조건에 맞는다면 포지션 진입
             btc = binance.fetch_ticker('BTC/USDT')
             if sample1() and BTC_M.orders[0]==None:
                 BTC_M.set_position(binance,0.001)
                 
+            
+            
+            #btc 모든 포지션이 종료되었으면 BTC_M 초기화
+            #if BTC_M.orders[0]
+            
+            
                 
                 
                 
-            #eth가 조건에 맞는다면
+            #eth가 진입조건에 맞는다면
             eth = binance.fetch_ticker('ETH/USDT')
             pass
         

@@ -1,3 +1,6 @@
+from strategy import *
+
+
 class PositionManager:
     orders = [None] * 3
     
@@ -12,11 +15,12 @@ class PositionManager:
         self.binance = binance
         self.position_size = position_size
         
-        # market price (ex: 19500$)
+        # market sell
+        # 시장가 진입
         self.orders[0] = self.binance.create_order(
             symbol=self.symbol,
             type="MARKET",
-            side="buy",
+            side="sell",
             amount=self.position_size
         )
 
@@ -27,7 +31,7 @@ class PositionManager:
         self.orders[1] = self.binance.create_order(
             symbol=self.symbol,
             type="TAKE_PROFIT_MARKET",
-            side="sell",
+            side="buy",
             amount=self.position_size,
             params={'stopPrice': 20800}
         )
@@ -38,17 +42,16 @@ class PositionManager:
         self.orders[2] = self.binance.create_order(
             symbol=self.symbol,
             type="STOP_MARKET",
-            side="sell",
+            side="buy",
             amount=self.position_size,
             params={'stopPrice': 20600}
         )
 
     
-    #거래 내역 저장
+    # 거래 내역 저장
+    def save_log(self):
+        pass
+    
+    
     def __del__(self):
         pass
-        
-
-    
-
-#dataframe 매매시각/ 거래 번호 /포지션 사이즈/ 포지션 long/short / 진입근거유형 여부 / 포지션 손실 / 현재 잔고
