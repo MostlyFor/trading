@@ -46,12 +46,14 @@ if __name__ == "__main__":
             btc = binance.fetch_ticker("BTC/USDT")
             btc_price = float(btc['info']['lastPrice'])
             
-            print('진행중')
+            
             
             #거래를 했다면 orders[0]에 거래가 들어감.
             if BTC_M.orders[0]==None:
                
                 if bollinger_upper_short("BTC/USDT",btc_price)[0]:
+                    
+                    print('체결됨')
                     TP = bollinger_upper_short("BTC/USDT",btc_price)[1]
                     SL = bollinger_upper_short("BTC/USDT",btc_price)[2]
                     BTC_M.set_TPSL(TP,SL)
@@ -59,15 +61,18 @@ if __name__ == "__main__":
             
             #있다면 거래 수시로 수정
             else:
-                TP = bollinger_upper_short("BTC/USDT",btc_price)[1]
-                SL = bollinger_upper_short("BTC/USDT",btc_price)[2]
-                BTC_M.set_TPSL(TP,SL)
+                if BTC_M.orders[0]['status']=='open':
+                    TP = bollinger_upper_short("BTC/USDT",btc_price)[1]
+                    SL = bollinger_upper_short("BTC/USDT",btc_price)[2]
+                    BTC_M.set_TPSL(TP,SL)
+                
+                # 이 포지션 모두 종료
+                else:
+                    BTC_M.__del__()
+                    
                 
                 
-            
-            
-            #btc TP 또는 SL이 발동되었다면 종료
-            #if BTC_M.orders[0]
+                
             
             
                 

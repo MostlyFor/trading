@@ -61,7 +61,7 @@ class PositionManager:
             params={'stopPrice': self.SL}
         )
         
-        
+    
     
     # 거래 내역 저장
     def save_log(self):
@@ -69,4 +69,8 @@ class PositionManager:
     
     
     def __del__(self):
-        pass
+        if self.orders[1]!=None:
+            self.binance.cancel_order(self.orders[1]['id'], self.orders[1]['symbol'])
+        if self.orders[2]!=None:
+            self.binance.cancel_order(self.orders[2]['id'], self.orders[2]['symbol'])
+        
