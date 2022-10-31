@@ -1,8 +1,13 @@
+from asyncio.windows_events import NULL
 from LAB import key
 import ccxt
 import pprint
 import time
 import pandas as pd
+from strategy import *
+from PositionManager import *
+
+
 
 
 
@@ -20,11 +25,12 @@ binance = ccxt.binance(config = {
 
 
 
-
-
 if __name__ == "__main__":
     try:
+        cnt = 1
         while True:
+            BTC_M = PositionManager()
+            
             #2400 requests per minute
             time.sleep(0.025)
             
@@ -34,16 +40,25 @@ if __name__ == "__main__":
             #print(balance['USDT'])
             
             
-            #가격정보 받아오기
-            btc = binance.fetch_ticker('BTC/USDT')
-            pprint.pprint(btc)
-
             
             
             
             #btc가 조건에 맞는다면
-            
+            btc = binance.fetch_ticker('BTC/USDT')
+            if sample1() and BTC_M.orders[0]==None:
+                BTC_M = PositionManager()
+                BTC_M.set_position(binance,'BTC/USDT',0.001)
+                
+                
+                
+                
+                
             #eth가 조건에 맞는다면
+            eth = binance.fetch_ticker('ETH/USDT')
             pass
+        
+        
+        
+        
     except KeyboardInterrupt:
         print('프로그램이 종료되었습니다.')
