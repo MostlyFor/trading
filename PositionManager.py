@@ -1,15 +1,14 @@
 class PositionManager:
     orders = [None] * 3
     
-    def __init__(self):
-        pass
+    def __init__(self,symbol):
+        self.symbol = symbol
     
     
     
     # 포지션 3개 한번에 설정
     # mode : buy or sell
-    def set_position(self,binance,symbol,position_size):
-        self.symbol = symbol
+    def set_position(self,binance,position_size):
         self.binance = binance
         self.position_size = position_size
         

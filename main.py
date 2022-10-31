@@ -29,7 +29,7 @@ if __name__ == "__main__":
     try:
         cnt = 1
         while True:
-            BTC_M = PositionManager()
+            BTC_M = PositionManager('BTC/USDT')
             
             #2400 requests per minute
             time.sleep(0.025)
@@ -46,9 +46,7 @@ if __name__ == "__main__":
             #btc가 조건에 맞는다면
             btc = binance.fetch_ticker('BTC/USDT')
             if sample1() and BTC_M.orders[0]==None:
-                BTC_M = PositionManager()
-                BTC_M.set_position(binance,'BTC/USDT',0.001)
-                
+                BTC_M.set_position(binance,0.001)
                 
                 
                 
