@@ -1,5 +1,8 @@
 # trading
 
+이 프로그램의 목적은 매매 전략을 백테스팅하여 적절한 전략으로 봇을 만들어 자동으로 매매하는 것이 목적입니다.
+
+
 ![image](https://user-images.githubusercontent.com/106165619/199129183-970b8c4b-af0f-41bd-9d82-7ee27a25d862.png)
 
 
