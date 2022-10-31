@@ -8,8 +8,11 @@ class PositionManager:
         self.symbol = symbol
     
     
+    def set_TPSL(self,TP,SL):
+        self.TP = TP
+        self.SL = SL
     
-    # 포지션 3개 한번에 설정
+    
     # mode : buy or sell
     def set_position(self,binance,position_size):
         self.binance = binance
@@ -24,29 +27,41 @@ class PositionManager:
             amount=self.position_size
         )
 
+
+    def set_range(self,binance,position_size):
+        self.binance = binance
+        self.position_size = position_size
+        
+        
         # take profit 
         # 목표가는 전략에 따라 다름
         # 우선은 퍼센트로 구현함
         
+        
+        
+        if self.orders[1]!=None:
+            self.binance.cancel_order(self.orders[1]['id'], self.orders[1]['symbol'])
         self.orders[1] = self.binance.create_order(
             symbol=self.symbol,
             type="TAKE_PROFIT_MARKET",
             side="buy",
             amount=self.position_size,
-            params={'stopPrice': 20800}
+            params={'stopPrice': self.TP}
         )
 
         # stop loss
         # 목표가는 전략에 따라 다름
-        
+        if self.orders[2]!=None:
+            self.binance.cancel_order(self.orders[2]['id'], self.orders[2]['symbol'])
         self.orders[2] = self.binance.create_order(
             symbol=self.symbol,
             type="STOP_MARKET",
             side="buy",
             amount=self.position_size,
-            params={'stopPrice': 20600}
+            params={'stopPrice': self.SL}
         )
-
+        
+        
     
     # 거래 내역 저장
     def save_log(self):

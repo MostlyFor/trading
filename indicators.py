@@ -7,9 +7,9 @@ import pandas as pd
 하단선: 중심선 – 2 * (20일 종가(close) 표준편차)
 '''
 
-def bollinger(timeframe='1m'):
+def bollinger(symbol,timeframe):
     coin = binance.fetch_ohlcv(
-    symbol="BTC/USDT", 
+    symbol=symbol, 
     timeframe=timeframe, 
     since=None, 
     limit=20)
@@ -24,7 +24,3 @@ def bollinger(timeframe='1m'):
     lower = middle - 2 * std
     
     return (upper,middle,lower)
-
-
-for i in bollinger():
-    print(i)

@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from sqlite3 import Timestamp
 from LAB import key
 import ccxt
 import pprint
@@ -6,7 +7,6 @@ import time
 import pandas as pd
 from strategy import *
 from PositionManager import *
-from indicators import *
 
 
 
@@ -28,6 +28,7 @@ binance = ccxt.binance(config = {
 if __name__ == "__main__":
     try:
         cnt = 1
+        #while에 원하는 전략이 있으면 그걸 클릭하고 그게 실행되게 만들면 좋을 듯
         while True:
             BTC_M = PositionManager('BTC/USDT')
             
@@ -41,14 +42,31 @@ if __name__ == "__main__":
             
             
             
-            #btc가 진입조건에 맞는다면 포지션 진입
-            btc = binance.fetch_ticker('BTC/USDT')
-            if sample1() and BTC_M.orders[0]==None:
-                BTC_M.set_position(binance,0.001)
+            #btc가 진입조건에 맞는다면 포지션 진입, 각 종목당 봇은 하나만 운영
+            btc = binance.fetch_ticker("BTC/USDT")
+            btc_price = float(btc['info']['lastPrice'])
+            
+            print('진행중')
+            
+            #거래를 했다면 orders[0]에 거래가 들어감.
+            if BTC_M.orders[0]==None:
+               
+                if bollinger_upper_short("BTC/USDT",btc_price)[0]:
+                    TP = bollinger_upper_short("BTC/USDT",btc_price)[1]
+                    SL = bollinger_upper_short("BTC/USDT",btc_price)[2]
+                    BTC_M.set_TPSL(TP,SL)
+                    BTC_M.set_position(binance,0.001)
+            
+            #있다면 거래 수시로 수정
+            else:
+                TP = bollinger_upper_short("BTC/USDT",btc_price)[1]
+                SL = bollinger_upper_short("BTC/USDT",btc_price)[2]
+                BTC_M.set_TPSL(TP,SL)
+                
                 
             
             
-            #btc 모든 포지션이 종료되었으면 BTC_M 초기화
+            #btc TP 또는 SL이 발동되었다면 종료
             #if BTC_M.orders[0]
             
             
