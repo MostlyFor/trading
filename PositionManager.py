@@ -35,9 +35,6 @@ class PositionManager:
         
         # take profit 
         # 목표가는 전략에 따라 다름
-        # 우선은 퍼센트로 구현함
-        
-        
         
         if self.orders[1]!=None:
             self.binance.cancel_order(self.orders[1]['id'], self.orders[1]['symbol'])
@@ -46,7 +43,8 @@ class PositionManager:
             type="TAKE_PROFIT_MARKET",
             side="buy",
             amount=self.position_size,
-            params={'stopPrice': self.TP}
+            params={'stopPrice': self.TP,
+                    "reduceOnly": True}
         )
 
         # stop loss
@@ -58,7 +56,8 @@ class PositionManager:
             type="STOP_MARKET",
             side="buy",
             amount=self.position_size,
-            params={'stopPrice': self.SL}
+            params={'stopPrice': self.SL,
+                    "reduceOnly": True}
         )
         
     

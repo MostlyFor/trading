@@ -23,4 +23,12 @@ def bollinger_upper_short(symbol,price):
 
 
 
-bollinger_upper_short('BTC/USDT',1)
+def bollinger_upper_short_for_test(symbol,price):
+    upper,middle,lower=bollinger(symbol,'1m')
+    
+    gap = upper-lower
+    
+    if price >  + upper:
+        return (True,middle,upper+ gap/100 * 15)
+                
+    return (False,0,0)
