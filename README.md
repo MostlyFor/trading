@@ -1,25 +1,17 @@
 # trading
 
-
-1. 포지션 관리자 (class로 구현)
-(비트코인, 이더리움 등등 거래하는 코인마다 객체 하나가 관리함)
+이 프로그램의 목적은 매매 전략을 백테스팅하여 적절한 전략으로 봇을 만들어 자동으로 매매하는 것이 목적입니다.
 
 
- - 주된 역할 : 
- - 
- - 
- -            1. 거리 내역 저장
+![image](https://user-images.githubusercontent.com/106165619/199133144-9554af6e-b139-4163-abe6-f0731014b7e0.png)
 
 
-              2. 거래 체결 (진입 시 및 TP/SL까지 설정)
-                (전략을 받아서 전략에 따른 TP/SL 은 다르게 할 예정)
-                
-                
-              3. 거래가 종료되면 거래 내역 다시 저장
-              
-              
-2. 전략 관리자 (백테스팅을 담당하는 함수 및 클래스..?)
+![image](https://user-images.githubusercontent.com/106165619/199129198-12c9f838-1efa-4bf3-abec-9f0ef446cdb0.png)
 
 
-3. 잔고 관리자 (잔고를 관리하고 현금화하거나 할 때 사용)
-              
+![image](https://user-images.githubusercontent.com/106165619/199129220-9862e3b2-d248-4816-b8dd-da79e09792d7.png)
+
+
+![image](https://user-images.githubusercontent.com/106165619/199129235-9ec5ee8a-c996-427d-acb8-a2cbedea51c2.png)
+
+
