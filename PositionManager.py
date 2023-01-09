@@ -23,7 +23,7 @@ class PositionManager:
         self.orders[0] = self.binance.create_order(
             symbol=self.symbol,
             type="MARKET",
-            side="sell",
+            side="buy",
             amount=self.position_size
         )
 
@@ -41,7 +41,7 @@ class PositionManager:
         self.orders[1] = self.binance.create_order(
             symbol=self.symbol,
             type="TAKE_PROFIT_MARKET",
-            side="buy",
+            side="sell",
             amount=self.position_size,
             params={'stopPrice': self.TP,
                     "reduceOnly": True}
@@ -54,7 +54,7 @@ class PositionManager:
         self.orders[2] = self.binance.create_order(
             symbol=self.symbol,
             type="STOP_MARKET",
-            side="buy",
+            side="sell",
             amount=self.position_size,
             params={'stopPrice': self.SL,
                     "reduceOnly": True}

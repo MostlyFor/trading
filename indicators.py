@@ -7,7 +7,7 @@ import pandas as pd
 하단선: 중심선 – 2 * (20일 종가(close) 표준편차)
 '''
 
-def bollinger(symbol,timeframe):
+def bollinger(symbol,timeframe,period):
     coin = binance.fetch_ohlcv(
     symbol=symbol, 
     timeframe=timeframe, 
@@ -18,8 +18,8 @@ def bollinger(symbol,timeframe):
     df['datetime'] =pd.to_datetime(df['datetime'],unit ='ms')
 
 
-    middle = df['close'].rolling(20).mean()[19]
-    std = df['close'].rolling(20).std()[19]
+    middle = df['close'].rolling(period).mean()[19]
+    std = df['close'].rolling(period).std()[19]
     upper = middle + 2 * std
     lower = middle - 2 * std
     
